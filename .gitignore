@@ -1,0 +1,5 @@
+# Personal deliberation logs (per-session MAGI scratch output)
+magi-workspace/
+
+# Local project settings; contains a stale skill copy
+.claude/
