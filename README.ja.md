@@ -1,6 +1,6 @@
 # MAGI — 三賢人による合議システム
 
-エヴァンゲリオンの **MAGI** をモチーフにした、お題を練り上げる Claude Code スキル。赤木ナオコ博士が自身の人格の3側面を移植した3つのスーパーコンピュータに倣い、**科学者・母・女**の3人格（MELCHIOR / BALTHASAR / CASPER）が、与えられたお題を独立に採点する。全員が80点に達するまで自動で練り直し、合議で可決された完成版を返す。お題のジャンルは問わない ── 企画・ネーミング・コピー・解説・戦略・分析まで、練り上げる価値があるものなら何でも。途中でユーザーに質問せず、可決まで一気に自走する。
+エヴァンゲリオンの **MAGI** をモチーフにした、お題を練り上げる Claude Code / Codex 用スキル。赤木ナオコ博士が自身の人格の3側面を移植した3つのスーパーコンピュータに倣い、**科学者・母・女**の3人格（MELCHIOR / BALTHASAR / CASPER）が、与えられたお題を独立に採点する。全員が80点に達するまで自動で練り直し、合議で可決された完成版を返す。お題のジャンルは問わない ── 企画・ネーミング・コピー・解説・戦略・分析まで、練り上げる価値があるものなら何でも。途中でユーザーに質問せず、可決まで一気に自走する。
 
 ## 仕組み
 
@@ -27,13 +27,23 @@ Claude Code の中で次を実行します:
 
 スキルの登録が自動で行われます。
 
-### 手動インストール
+### 手動インストール（Claude Code）
 
 スキルフォルダを Claude Code のスキルディレクトリにコピーします:
 
 ```bash
 mkdir -p ~/.claude/skills && cp -R skills/magi ~/.claude/skills/magi
 ```
+
+### 手動インストール（Codex）
+
+スキルフォルダを Codex のスキルディレクトリにコピーします:
+
+```bash
+mkdir -p ~/.agents/skills && cp -R skills/magi ~/.agents/skills/magi
+```
+
+Codex はユーザーレベルのスキルを `~/.agents/skills` から読み込みます（リポジトリ直下の `.agents/skills` に置けばプロジェクト単位でも使えます）。
 
 ## 使い方
 
@@ -47,10 +57,12 @@ mkdir -p ~/.claude/skills && cp -R skills/magi ~/.claude/skills/magi
 
 ## VDGG連携
 
-[VibesDeGoGo!](https://github.com/tmknzz/VibesDeGoGo-for-Claude-Code) を併用している場合、MAGIは2つの役割も担う:
+[VibesDeGoGo! for Claude Code](https://github.com/tmknzz/VibesDeGoGo-for-Claude-Code) または [VibesDeGoGo! for Codex](https://github.com/tmknzz/VibesDeGoGo-for-Codex) を併用している場合、MAGIは2つの役割も担う:
 
 - **(a) Step 0 の要件審議** ── 要件ドラフトを3人格で叩き、判断材料をユーザーに渡す。
 - **(b) 主観的成果物のレビューゲート** ── 文言・ドキュメント・デザイン・ネーミング等を可決/否決する。
+
+発火条件はユーザーのグローバル指示（Claude Code は CLAUDE.md、Codex は AGENTS.md）に書かれている。レビューゲートを可決したときは、呼び出し元エージェントが `vdgg_state_mark_reviewed` を記録する（両エディションに存在する）。
 
 このときは縮小版の**軽量議**で回す（基本3議。収束が明白なときだけ最大5議まで延長）。MAGIは**「望ましさの番人」であって「正しさの番人」ではない** ── コードの正しさ（動くか・バグがないか）は審議しない。それはテストと外部コードレビューの仕事だ。
 

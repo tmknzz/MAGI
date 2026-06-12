@@ -1,6 +1,6 @@
 # MAGI — Council of Three Sages
 
-A Claude Code skill that hones a prompt, themed on the **MAGI** of Evangelion. Just as Dr. Naoko Akagi transplanted the three facets of her own personality into three supercomputers, three personas — **the scientist, the mother, the woman** (MELCHIOR / BALTHASAR / CASPER) — score any given prompt independently. They auto-iterate until all three reach 80, then return the version the council has passed. Any genre is fair game — planning, naming, copy, explanation, strategy, analysis — anything worth honing. It runs straight through to a verdict without asking the user questions mid-deliberation.
+A skill for Claude Code and Codex that hones a prompt, themed on the **MAGI** of Evangelion. Just as Dr. Naoko Akagi transplanted the three facets of her own personality into three supercomputers, three personas — **the scientist, the mother, the woman** (MELCHIOR / BALTHASAR / CASPER) — score any given prompt independently. They auto-iterate until all three reach 80, then return the version the council has passed. Any genre is fair game — planning, naming, copy, explanation, strategy, analysis — anything worth honing. It runs straight through to a verdict without asking the user questions mid-deliberation.
 
 ## How it works
 
@@ -27,13 +27,23 @@ Inside Claude Code, run:
 
 This registers the skill automatically.
 
-### Manual install
+### Manual install (Claude Code)
 
 Copy the skill folder into Claude Code's skills directory:
 
 ```bash
 mkdir -p ~/.claude/skills && cp -R skills/magi ~/.claude/skills/magi
 ```
+
+### Manual install (Codex)
+
+Copy the skill folder into Codex's skills directory:
+
+```bash
+mkdir -p ~/.agents/skills && cp -R skills/magi ~/.agents/skills/magi
+```
+
+Codex reads user-level skills from `~/.agents/skills` (a repo-local `.agents/skills` also works for per-project use).
 
 ## Usage
 
@@ -47,10 +57,12 @@ Once it receives a prompt, MAGI **runs autonomously without inserting questions*
 
 ## Working with VDGG
 
-When used alongside [VibesDeGoGo!](https://github.com/tmknzz/VibesDeGoGo-for-Claude-Code), MAGI also takes on two roles:
+When used alongside [VibesDeGoGo! for Claude Code](https://github.com/tmknzz/VibesDeGoGo-for-Claude-Code) or [VibesDeGoGo! for Codex](https://github.com/tmknzz/VibesDeGoGo-for-Codex), MAGI also takes on two roles:
 
 - **(a) Step 0 requirements council** — the three personas pressure-test the requirements draft and hand the user the material to decide on.
 - **(b) Review gate for subjective artifacts** — passing or rejecting copy, docs, design, naming, and the like.
+
+The trigger conditions live in the user's global instructions (CLAUDE.md for Claude Code, AGENTS.md for Codex). On a passing review gate, the calling agent records `vdgg_state_mark_reviewed` (which exists in both editions).
 
 In these cases it runs a trimmed-down **lightweight deliberation** (3 rounds by default; extended to at most 5 only when convergence is clear). MAGI is the **guardian of desirability, not the guardian of correctness** — it does not deliberate on whether code is correct (does it run, is it bug-free). That belongs to tests and external code review.
 
