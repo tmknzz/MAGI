@@ -2,6 +2,8 @@
 
 A skill for Claude Code and Codex that hones a prompt, themed on the **MAGI** of Evangelion. Just as Dr. Naoko Akagi transplanted the three facets of her own personality into three supercomputers, three personas — **the scientist, the mother, the woman** (MELCHIOR / BALTHASAR / CASPER) — score any given prompt independently. They auto-iterate until all three reach 80, then return the version the council has passed. Any genre is fair game — planning, naming, copy, explanation, strategy, analysis — anything worth honing. It runs straight through to a verdict without asking the user questions mid-deliberation.
 
+**Host-neutral:** the same skill runs under either Claude Code or Codex — install steps for both hosts are below.
+
 ## How it works
 
 There is no external moderator. The three are not critics but **authors** — they write the proposals, sharpen each other, and merge the result themselves.
@@ -13,6 +15,29 @@ There is no external moderator. The three are not critics but **authors** — th
 5. At all-80 the proposal **passes**; the finished version is presented and the loop ends.
 
 Scores are never fabricated. When the iteration cap is reached and not all three reach 80, MAGI does not stage an 80 — it honestly reports where things stand and **why the council is split** (an honest deadlock report).
+
+## A run, condensed
+
+An example of what a MAGI deliberation looks like (illustrative):
+
+```text
+Prompt: "Name a focus timer that never nags."
+
+━━━ MAGI / Opening ━━━
+  MELCHIOR (logic)     "Pomo-Quiet" — descriptive; says exactly what it does.
+  BALTHASAR (empathy)  "Hush" — calm, and it never scolds the user.
+  CASPER (edge)        "'Pomo-Quiet' is a spec sheet, not a name. Make it felt."
+
+━━━ MAGI / Round 1 ━━━
+  MELCHIOR   78  reject — "Hush" is memorable but says nothing about focus.
+  BALTHASAR  84  pass
+  CASPER     63  reject — safe, therefore forgettable. Where is the pull?
+
+━━━ MAGI / Passed (Round 2) ━━━  M:83  B:86  C:82
+  Final: "Lull" — a quiet that pulls you under into focus, and never nags.
+```
+
+Scores are honest, not scripted: the council passes only at all-80, and reports an honest deadlock if it cannot get there.
 
 ## Install
 
@@ -32,6 +57,8 @@ This registers the skill automatically.
 Copy the skill folder into Claude Code's skills directory:
 
 ```bash
+git clone https://github.com/tmknzz/MAGI.git
+cd MAGI
 mkdir -p ~/.claude/skills && cp -R skills/magi ~/.claude/skills/magi
 ```
 
@@ -40,6 +67,8 @@ mkdir -p ~/.claude/skills && cp -R skills/magi ~/.claude/skills/magi
 Copy the skill folder into Codex's skills directory:
 
 ```bash
+git clone https://github.com/tmknzz/MAGI.git
+cd MAGI
 mkdir -p ~/.agents/skills && cp -R skills/magi ~/.agents/skills/magi
 ```
 
@@ -65,6 +94,10 @@ When used alongside [VibesDeGoGo! for Claude Code](https://github.com/tmknzz/Vib
 The trigger conditions live in the user's global instructions (CLAUDE.md for Claude Code, AGENTS.md for Codex). On a passing review gate, the calling agent records `vdgg_state_mark_reviewed` (which exists in both editions).
 
 In these cases it runs a trimmed-down **lightweight deliberation** (3 rounds by default; extended to at most 5 only when convergence is clear). MAGI is the **guardian of desirability, not the guardian of correctness** — it does not deliberate on whether code is correct (does it run, is it bug-free). That belongs to tests and external code review.
+
+## Homage & non-affiliation
+
+MAGI is an independent **fan homage** to *Neon Genesis Evangelion*. The MAGI supercomputer and the names MELCHIOR, BALTHASAR, and CASPER originate from that work and belong to their respective rights holders (Khara, Inc. / GAINAX). This project is **not affiliated with, endorsed by, or sponsored by** Khara or GAINAX, and claims no rights to those names or concepts — they are used purely in tribute. The MIT License below covers only this repository's own original code and text, not the referenced trademarks or characters.
 
 ## License
 

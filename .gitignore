@@ -3,3 +3,6 @@ magi-workspace/
 
 # Local project settings; contains a stale skill copy
 .claude/
+
+# Claude Code / VibesDeGoGo!
+.claude/.vdgg-*
