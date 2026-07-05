@@ -4,6 +4,8 @@ A skill for Claude Code and Codex that hones a prompt, themed on the **MAGI** of
 
 **Host-neutral:** the same skill runs under either Claude Code or Codex — install steps for both hosts are below.
 
+**Hybrid mode (Real MELCHIOR):** off by default. When the user explicitly asks for it ("hybrid" / "Real MELCHIOR"), the MELCHIOR seat is no longer role-played by the host — OpenAI's Codex is invoked headlessly and its verbatim reply becomes MELCHIOR's voice, putting a genuinely independent second mind on the logic seat. Since the point is a *different vendor* from the host, it is not recommended when Codex itself is the host. See the 混成モード section in the skill for the invocation contract.
+
 ## How it works
 
 There is no external moderator. The three are not critics but **authors** — they write the proposals, sharpen each other, and merge the result themselves.

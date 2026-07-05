@@ -7,6 +7,5 @@ magi-workspace/
 # Claude Code / VibesDeGoGo!
 .claude/.vdgg-*
 
-# Local-only: experiment + VDGG task scaffolding (not for the public repo)
-skills/rnagi/
+# Local-only: VDGG task scaffolding (not for the public repo)
 tasks/
