@@ -2,9 +2,9 @@
 
 A skill for Claude Code and Codex that hones a prompt, themed on the **MAGI** of Evangelion. Just as Dr. Naoko Akagi transplanted the three facets of her own personality into three supercomputers, three personas — **the scientist, the mother, the woman** (MELCHIOR / BALTHASAR / CASPER) — score any given prompt independently. They auto-iterate until all three reach 80, then return the version the council has passed. Any genre is fair game — planning, naming, copy, explanation, strategy, analysis — anything worth honing. It runs straight through to a verdict without asking the user questions mid-deliberation.
 
-**Host-neutral:** the same skill runs under Claude Code, Codex, and pi. Seats can also delegate to local models such as Qwen through pi.
+**Host-neutral:** the same skill runs under either Claude Code or Codex — install steps for both hosts are below.
 
-**Per-seat Formations:** assign an executor, model, and Thinking level to each council member. Omitted seats use the AI that invoked MAGI (`primary`). The Real MELCHIOR shortcut remains available.
+**Hybrid mode (Real MELCHIOR):** off by default. When the user explicitly asks for it ("hybrid" / "Real MELCHIOR"), the MELCHIOR seat is no longer role-played by the host — OpenAI's Codex is invoked headlessly and its verbatim reply becomes MELCHIOR's voice, putting a genuinely independent second mind on the logic seat. Since the point is a *different vendor* from the host, it is not recommended when Codex itself is the host. See the 混成モード section in the skill for the invocation contract.
 
 ## How it works
 
@@ -76,28 +76,6 @@ mkdir -p ~/.agents/skills && cp -R skills/magi ~/.agents/skills/magi
 
 Codex reads user-level skills from `~/.agents/skills` (a repo-local `.agents/skills` also works for per-project use).
 
-### pi
-
-```sh
-pi --skill /absolute/path/MAGI/skills/magi/SKILL.md
-```
-
-Invoke `/skill:magi` inside pi. Installing to `~/.agents/skills/magi` also works.
-
-## Selecting a Formation
-
-Create `~/.config/magi/formations/local.conf`, then ask MAGI to use the `local` Formation:
-
-```text
-MAGI-M: pi qwen38-local/Qwen3.8-27B-abliterated-MLX-4bit low
-MAGI-B: primary
-MAGI-C: codex gpt-6-astra high
-```
-
-Use model IDs and Thinking levels supported by your provider. Omitted seats use the calling AI. Without a selected MAGI Formation, MAGI inherits VDGG's council seats, or uses primary for all seats if none are assigned. Standalone use does not require VDGG.
-
-See the [Formation guide](skills/magi/references/formations.md) for selection precedence, CLI execution, pi configuration, and failure handling. The helper requires Python 3.
-
 ## Usage
 
 Trigger it with any of:
@@ -115,7 +93,7 @@ When used alongside [VibesDeGoGo! for Claude Code](https://github.com/tmknzz/Vib
 - **(a) Step 0 requirements council** — the three personas pressure-test the requirements draft and hand the user the material to decide on.
 - **(b) Review gate for subjective artifacts** — passing or rejecting copy, docs, design, naming, and the like.
 
-The trigger conditions live in the user's global instructions (CLAUDE.md for Claude Code, AGENTS.md for Codex). Only a passing review gate is recorded through the calling host’s current VDGG review mechanism (`vdgg_review_run` on Codex).
+The trigger conditions live in the user's global instructions (CLAUDE.md for Claude Code, AGENTS.md for Codex). On a passing review gate, the calling agent records `vdgg_state_mark_reviewed` (which exists in both editions).
 
 In these cases it runs a trimmed-down **lightweight deliberation** (3 rounds by default; extended to at most 5 only when convergence is clear). MAGI is the **guardian of desirability, not the guardian of correctness** — it does not deliberate on whether code is correct (does it run, is it bug-free). That belongs to tests and external code review.
 

@@ -9,6 +9,3 @@ magi-workspace/
 
 # Local-only: VDGG task scaffolding (not for the public repo)
 tasks/
-
-# Codex / VibesDeGoGo!
-.codex/.vdgg-*
